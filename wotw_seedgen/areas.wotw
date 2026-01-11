@@ -2769,6 +2769,11 @@ anchor WestHollow.RockPuzzle at -249, -4275:  # At the right ledge of the rock p
       Bow=1, AerialHammerJump OR CoyoteHammerJump OR WallHammerJump OR GlideHammerJump
   state WestHollow.UpperTongueExtended:
     unsafe: Bow=1  # TP to avoid touching the water
+  state WestHollow.UpperTongueRetracted:
+    # Paths using FullyDrained originate from SubmergedPlatform, check there for more details on this state.
+    unsafe:
+      WestHollow.UpperDrainLeverPulled  # https://youtu.be/mmNLRbJQMCc. Unverified for other aspect ratios / load times.
+      # WestHollow.UpperDrainLeverPulled, Sword
 
   pickup WestHollow.RockPuzzleEX:
     moki: WestHollow.FullyDrained
@@ -2954,9 +2959,7 @@ anchor WestHollow.SubmergedPlatform at -215, -4288:  # the platform below Hollow
     # This means we don't have to explicitely require the Bow weapon, although if the movement before consumes energy, we'd ideally ensure enough energy is left to use the Bow afterwards.
     moki: WestHollow.FullyDrained, WestHollow.LowerTongueExtended, Combat=BombSlug OR Dash OR Damage=10  # Some lenience over dodging the BombSlug, although dodging could still be required if the player only has energy for exactly one Bowshot.
     gorlek: WestHollow.FullyDrained, WestHollow.LowerTongueExtended
-    unsafe:
-      WestHollow.UpperDrainLeverPulled OR WestHollow.FullyDrained  # https://youtu.be/mmNLRbJQMCc. Unverified for other aspect ratios / load times. With FullyDrained you can also just jump below.
-      # WestHollow.UpperDrainLeverPulled, Sword
+    unsafe: WestHollow.FullyDrained  # shoot midair then teleport back
   state WestHollow.LowerTongueExtended:
     moki, WestHollow.FullyDrained: Combat=BombSlug, Bow=1  # need to kill the slug in order to aim the frog statue
     unsafe, WestHollow.FullyDrained: Bow=1  # waiting long enough on the left of the energy crystal will zoom out the camera and allow to autoaim the statue
