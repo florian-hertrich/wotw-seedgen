@@ -12901,7 +12901,7 @@ anchor EastPools.Teleporter at -1316, -4153:  # At the teleporter after draining
     unsafe, EastPools.LowerWaterDrained:
       Damage=80
   conn EastPools.FishingPool:  # This path starts here because it's the closest to the torpedo
-    unsafe: EastPools.LowerWaterDrained, Bash  # Juggle the torpedo
+    unsafe: EastPools.LowerWaterDrained, Water, Bash  # Juggle the torpedo
 
 anchor EastPools.FishingPool at -1278, -4124:  # At the fisher moki
   quest EastPools.HandToHandSpyglass:
