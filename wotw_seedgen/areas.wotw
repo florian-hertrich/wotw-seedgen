@@ -15439,9 +15439,11 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
       Bash, Grenade=1
       Launch
     gorlek: Combat=2xCrystalMiner+2xShieldCrystalMiner, DoubleJump OR SentryJump=1
-    kii:
-      Combat=2xCrystalMiner+2xShieldCrystalMiner, Dash OR Hammer
-      Combat=2xCrystalMiner+2xShieldCrystalMiner, Sword, Shuriken=1 OR Flash=1 OR Sentry=1
+    kii, Combat=2xCrystalMiner+2xShieldCrystalMiner:
+      Dash OR Hammer
+      Sword, Shuriken=1 OR Flash=1 OR Sentry=1
+      # Glitched
+      # GlideJump
     unsafe:
       Combat=2xCrystalMiner+2xShieldCrystalMiner, Sword  # upslash+downslash
       Combat=2xCrystalMiner+2xShieldCrystalMiner, Glide, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1
@@ -15455,6 +15457,8 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
     kii, WeepingRidge.ElevatorFightCompleted:
       Dash OR Hammer
       Sword, Shuriken=1 OR Flash=1 OR Sentry=1
+      # Glitched
+      # GlideJump
     unsafe: WeepingRidge.ElevatorFightCompleted, Glide OR Sword
   conn LowerWastes.WestTP:  # covers connections into woods
     moki: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
