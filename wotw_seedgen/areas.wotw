@@ -15459,7 +15459,9 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
       Sword, Shuriken=1 OR Flash=1 OR Sentry=1
       # Glitched
       # GlideJump
-    unsafe: WeepingRidge.ElevatorFightCompleted, Glide OR Sword
+    unsafe:
+      WeepingRidge.ElevatorFightCompleted, Sword  # upslash+downslash
+      WeepingRidge.ElevatorFightCompleted, Glide, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1
   conn LowerWastes.WestTP:  # covers connections into woods
     moki: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
     gorlek: Burrow  # won't softlock if you did the cat and mouse because you'll have unlocked the teleporter
