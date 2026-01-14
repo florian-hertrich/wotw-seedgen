@@ -15446,7 +15446,7 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
       # GlideJump
     unsafe:
       Combat=2xCrystalMiner+2xShieldCrystalMiner, Sword  # upslash+downslash
-      Combat=2xCrystalMiner+2xShieldCrystalMiner, Glide, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1
+      Combat=2xCrystalMiner+2xShieldCrystalMiner, Glide, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1 OR BlazeSwap=1
 
   conn WeepingRidge.LaunchArea:
     moki, WeepingRidge.ElevatorFightCompleted:
@@ -15461,7 +15461,7 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
       # GlideJump
     unsafe:
       WeepingRidge.ElevatorFightCompleted, Sword  # upslash+downslash
-      WeepingRidge.ElevatorFightCompleted, Glide, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1
+      WeepingRidge.ElevatorFightCompleted, Glide, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1 OR BlazeSwap=1
   conn LowerWastes.WestTP:  # covers connections into woods
     moki: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
     gorlek: Burrow  # won't softlock if you did the cat and mouse because you'll have unlocked the teleporter
@@ -15486,6 +15486,7 @@ anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of
       DoubleJump, TripleJump
       DoubleJump, Sword, Damage=40, Bow=1  # Reset your jump by slashing the elemental, pogo him to reach the wall above the portal, djump + upslash from under the Mine to reach the spikes
       Bash, DoubleJump
+      Unpopular, Bash  # Projectile redirect + friendly spikes https://youtu.be/SecqqWk_hFE
 
   conn WeepingRidge.AboveTree:
     moki:
@@ -15505,10 +15506,17 @@ anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of
       Bash, DoubleJump, Sword OR Hammer OR Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1
       Sword, DoubleJump OR Dash  # Use sword on elemental to reset your djump/dash (don't use portal with dash)
       DoubleJump, Dash, Hammer OR Shuriken=1 OR Blaze=2 OR Flash=1 OR Sentry=1
+      # Glitched
+      # Damage=40, SwordSJump=1  # Full hover twice, Dboost on spikes, SentryJump into the portal
     unsafe:
       Damage=40, Sword OR Hammer
       Dash, Hammer OR DoubleJump  # Dash against the ceiling to refresh your dash
-      Bash, DoubleJump, Blaze=1
+      Bash, DoubleJump  # Bashglide to the 2nd elemental. Precise
+      # Bash, DoubleJump, Bow=1  # Bashgliding with bow directly to the platform. Easier than the bowless path.
+      Unpopular, Bash  # Projectile redirect + friendly spikes https://youtu.be/YbaXP2qQv9Y
+      AerialHammerJump  # Refresh DJ against the wall
+      PauseFloat OR AbilitySwap=4  # Maybe possible with 3 swaps
+      DoubleJump, TripleJump  # Wrap around the central wall. Too many enemies for kii
   conn WeepingRidge.WillowEntranceLedge:
     moki, WeepingRidge.ElevatorFightCompleted: Launch, DoubleJump, Dash OR Glide
     gorlek, WeepingRidge.ElevatorFightCompleted: Launch, DoubleJump OR Dash
@@ -15516,10 +15524,15 @@ anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of
       Launch, Glide OR Sword OR Hammer OR Shuriken=2 OR Sentry=3
       Launch, Bash, Grenade=1
       Bash, Grenade=3, DoubleJump, TripleJump
+      # Glitched
+      # AerialHammerJump, TripleJump, Dash OR Glide
     unsafe, WeepingRidge.ElevatorFightCompleted:
       Launch
-      SentryJump=3, DoubleJump, TripleJump, Dash
+      SwordSJump=4 OR HammerSJump=5  # Hammer takes longer to upswing and lasers will stop you
+      HammerSJump=4, DoubleJump OR Dash OR Glide
       Bash, Grenade=3, DoubleJump
+      AerialHammerJump, HammerExtension, WallHammerJump OR TripleJump
+      GrenadeJump, GrenadeCancel, DoubleJump
   conn WeepingRidge.Bottom:
     moki, WeepingRidge.ElevatorFightCompleted:
       Launch
@@ -15531,10 +15544,13 @@ anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of
     kii, WeepingRidge.ElevatorFightCompleted:
       Glide OR Dash OR DoubleJump
       Sword OR Hammer
-      Sentry=5
-      Bash, Grenade=2
-    unsafe, WeepingRidge.ElevatorFightCompleted:
-      Shuriken=3 OR Sentry=3
+      Sentry=4
+      Bash, Grenade=2  # Can GJump over the 2nd gap as well
+    unsafe, WeepingRidge.ElevatorFightCompleted:  # Can coyote jump over the right gap for free
+      Shuriken=1 OR Sentry=2 OR AbilitySwap=1 OR PauseFloat # Towards the left wall. Shuriken: https://youtu.be/jF3Gi90F5Ws.
+      SpearJump=1, Spear=2  # 1 jump + 1 spear might be possible. https://youtu.be/AEiZkRiLQCc
+      Bash, Grenade=1
+      GrenadeJump, GrenadeCancel  # Can barely make it to the ledge above the portal
 
 anchor WeepingRidge.AboveTree at 1344, -3791:  # The ledge above Launch tree
   refill Checkpoint
