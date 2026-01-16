@@ -15528,6 +15528,7 @@ anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of
       # AerialHammerJump, TripleJump, Dash OR Glide
     unsafe, WeepingRidge.ElevatorFightCompleted:
       Launch
+      SentryJump=3, DoubleJump, TripleJump, Dash
       SwordSJump=4 OR HammerSJump=5  # Hammer takes longer to upswing and lasers will stop you
       HammerSJump=4, DoubleJump OR Dash OR Glide
       Bash, Grenade=3, DoubleJump
