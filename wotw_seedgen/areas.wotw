@@ -15592,7 +15592,7 @@ anchor WeepingRidge.AboveTree at 1344, -3791:  # The ledge above Launch tree
       GrenadeJump, GrenadeCancel, GlideJump, Damage=40  # Take a dboost beneath the pickup
   pickup WeepingRidge.Ore:
     # Needs a way to get over the first ledge (1), a way to get to the platform left of the portal (2) and a way to get up to the ore (3)
-    # (2a) Going through the portal
+    # (2a) Going through the portal. Most things that can solve (1) can also solve (2a)
     # (2b) Going around the outside
     moki: Launch, DoubleJump OR Dash OR Bash OR Glide
     gorlek: Launch
@@ -15600,28 +15600,24 @@ anchor WeepingRidge.AboveTree at 1344, -3791:  # The ledge above Launch tree
       Bash, Grenade=2, Damage=20, DoubleJump OR Dash  # Damage for wonky lasers
       Bash, Grenade=1, DoubleJump, TripleJump, Damage=60  # 20 of the damage for wonky lasers
       # Glitched
-      # SentryJump=3  # (1)+(2a)+(3). Uncommented in unsafe
-      # AerialHammerJump, SentryJump=1  # (1)+(2a), (3) SentryJump over the spikes
+      # SentryJump=3  # (1)+(2a)+(3)
+      # AerialHammerJump, SentryJump=1  # (1)+(2a), (3) SJump over the spikes
       # AerialHammerJump, TripleJump, Damage=20  # (1)+(2a)+(3) Easy to hit the mine or the laser
     unsafe:  # It is possible to duck left of the portal to wait out the laser
       DoubleJump, TripleJump, Sword  # Pogo the mines
       DoubleJump, TripleJump, Hammer, Damage=40
       DoubleJump, TripleJump, GlideJump  # (1)+(2a) GlideJump and TJ, (3) TJ
-      Bash, Grenade=1:  # (1) by bashing grenade. (3) Solved by bash alone
-        SentryJump=1  # (2a)
-        Grenade=1  # (2a) by bashing grenade
-        DoubleJump, TripleJump OR Dash OR Glide OR PauseFloat  # (2b) Projectile bait with air stall, (3) Can also TJump
-        GlideJump  # (2b) Projectile bait with air stall
-      SentryJump=1:  # (1) by sentry jumping.
-        SentryJump=2  # (2a)+(3). Commented in kii
-        SentryJump=1, SwordJump  # (2a) by sentry jumping, (3) DJ+Pogo the elemental to reach the right wall, DJ to left wall, SwordJump and upslash to the ore
-        SentryJump=1, Bash  # (2a) by sentry jumping, (3) Solved by bash alone
-        # Bash, Grenade=1  # Redundant
-        Bash, DoubleJump, TripleJump OR Dash OR Glide OR PauseFloat  # (2b) Projectile bait with air stall, (3) Solved by bash alone
-        Bash, GlideJump  # (2b) Projectile bait with air stall, (3) Solved by bash alone
-      GrenadeJump, GrenadeCancel, DoubleJump OR Bash  # (1)+(2), (3) by double gjumps or bash alone
-      AerialHammerJump  # (1)+(2a)+(3) By refreshing on walls
-      WallHammerJump, HammerExtension  # (1) Turnaround walljump on the mine, (2a) Off the ledge through the portal, (3) Off the ledge on the left and turnaround off the wall
+      Bash, Grenade=1:  # (1) bashnade. (3) bash alone
+        Grenade=1  # (2a) bashnade
+        DoubleJump, TripleJump OR Dash OR Glide OR PauseFloat  # (2b) Projectile bait, (3) Can also TJump
+        GlideJump  # (2b) Projectile bait
+      SentryJump=1:  # (1) sjump
+        SentryJump=1, SwordJump OR Bash  # (2a) sjump, (3) Pogo the elemental, reset above portal, swordJump and upslash
+        Bash, DoubleJump, TripleJump OR Dash OR Glide OR PauseFloat  # (2b) Projectile bait, (3) Bash alone
+        Bash, GlideJump  # (2b) Projectile bait, (3) Bash alone
+      GrenadeJump, GrenadeCancel, DoubleJump OR Bash  # (1)+(2), (3) Double gjumps or bash alone
+      AerialHammerJump  # (1)+(2a)+(3) Refresh on walls
+      WallHammerJump, HammerExtension  # (1) Turnaround on the mine, (2a) Off the ledge, (3) Off the ledge and turnaround off the wall
 
   conn WeepingRidge.LaunchArea:
     moki: Launch, Bash, Glide  # Glide is the only ability that really helps you outwait the laser attack
