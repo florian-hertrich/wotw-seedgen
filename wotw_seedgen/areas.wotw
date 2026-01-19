@@ -15433,38 +15433,41 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
   refill Energy=3:
     moki: BreakCrystal
 
-  state WeepingRidge.ElevatorFightCompleted:
-    moki, Combat=2xCrystalMiner+2xShieldCrystalMiner:
+  conn WeepingRidge.Elevator:
+    moki:
       DoubleJump, Dash OR Glide
       Bash, Grenade=1
       Launch
-    gorlek: Combat=2xCrystalMiner+2xShieldCrystalMiner, DoubleJump OR SentryJump=1
-    kii, Combat=2xCrystalMiner+2xShieldCrystalMiner:
+    gorlek: DoubleJump OR SentryJump=1
+    kii:
       Dash OR Hammer
       Sword, Shuriken=1 OR Flash=1 OR Sentry=1
       # Glitched
       # GlideJump
+      # GrenadeJump=1, Glide OR Sword OR Shuriken=1 OR Flash=1 OR Sentry=1
     unsafe:
-      Combat=2xCrystalMiner+2xShieldCrystalMiner, Sword  # upslash+downslash
-      Combat=2xCrystalMiner+2xShieldCrystalMiner, Glide, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1 OR BlazeSwap=1
-
-  conn WeepingRidge.LaunchArea:
-    moki, WeepingRidge.ElevatorFightCompleted:
-      DoubleJump, Dash OR Glide
-      Bash, Grenade=1
-      Launch
-    gorlek, WeepingRidge.ElevatorFightCompleted: DoubleJump OR SentryJump=1
-    kii, WeepingRidge.ElevatorFightCompleted:
-      Dash OR Hammer
-      Sword, Shuriken=1 OR Flash=1 OR Sentry=1
-      # Glitched
-      # GlideJump
-    unsafe:
-      WeepingRidge.ElevatorFightCompleted, Sword  # upslash+downslash
-      WeepingRidge.ElevatorFightCompleted, Glide, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1 OR BlazeSwap=1
+      Sword  # upslash+downslash
+      Glide, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1 OR BlazeSwap=1
+      GlideJump OR GrenadeJump
   conn LowerWastes.WestTP:  # covers connections into woods
     moki: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
     gorlek: Burrow  # won't softlock if you did the cat and mouse because you'll have unlocked the teleporter
+
+anchor WeepingRidge.Elevator at -1170, -3820:  # Checkpoint next to the elevator
+  refill Checkpoint
+
+  state WeepingRidge.ElevatorFightCompleted:
+    moki: Combat=2xCrystalMiner+2xShieldCrystalMiner
+
+  conn WeepingRidge.LaunchArea:
+    moki: WeepingRidge.ElevatorFightCompleted
+  conn WeepingRidge.Bottom:
+    moki: Launch OR DoubleJump OR Dash OR Glide
+    gorlek: Sword OR Hammer
+    kii:
+      Bash, Grenade=1
+      Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
+    unsafe: free  # coyote jump
 
 anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of the elevator
   refill Checkpoint
@@ -15534,24 +15537,24 @@ anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of
       Bash, Grenade=3, DoubleJump
       AerialHammerJump, HammerExtension, WallHammerJump OR TripleJump
       GrenadeJump, GrenadeCancel, DoubleJump
-  conn WeepingRidge.Bottom:
+  conn WeepingRidge.Elevator:
     moki, WeepingRidge.ElevatorFightCompleted:
       Launch
-      Bash, Grenade=1, DoubleJump
+      Bash, Grenade=1
       DoubleJump, Dash, Glide
     gorlek, WeepingRidge.ElevatorFightCompleted:
-      SwordSJump=1
+      SentryJump=1
       DoubleJump, TripleJump OR Dash OR Glide
     kii, WeepingRidge.ElevatorFightCompleted:
       Glide OR Dash OR DoubleJump
       Sword OR Hammer
       Sentry=4
-      Bash, Grenade=2  # Can GJump over the 2nd gap as well
-    unsafe, WeepingRidge.ElevatorFightCompleted:  # Can coyote jump over the right gap for free
+      # Glitched
+      # GrenadeJump=1, Shuriken=2 OR Blaze=6
+    unsafe, WeepingRidge.ElevatorFightCompleted:
       Shuriken=1 OR Sentry=2 OR AbilitySwap=1 OR PauseFloat # Towards the left wall. Shuriken: https://youtu.be/jF3Gi90F5Ws.
       SpearJump=1, Spear=2  # 1 jump + 1 spear might be possible. https://youtu.be/AEiZkRiLQCc
-      Bash, Grenade=1
-      GrenadeJump, GrenadeCancel  # Can barely make it to the ledge above the portal
+      GrenadeJump  # Can barely make it to the ledge above the portal
 
 anchor WeepingRidge.AboveTree at 1344, -3791:  # The ledge above Launch tree
   refill Checkpoint
