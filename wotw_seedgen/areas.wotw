@@ -15280,7 +15280,11 @@ anchor WindtornRuins.BrokenMural at 2108, -3959:  # At the broken mural above th
       WindtornRuins.HeartBarrier, Hammer OR Sword OR Sentry=2
       Burrow, Hammer
       Burrow, Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1  # burrow the crumbing platform
-    unsafe: Burrow  # at the pilar, hold up+right and burrow through the crumbing platform
+    unsafe:
+      Burrow  # slide down the pillar, hold up+right and burrow through the crumbing platform
+      WindtornRuins.HeartBarrier, GrenadeJump  # GrenadeCancel to reach the platform, then GrenadeJump https://youtu.be/CzoURpEZPFA
+      WindtornRuins.HeartBarrier, SpearJump=1, Spear=2  # Spear to reach the platform, SpearJump off the platform, safety spear to reach the wall
+      WindtornRuins.HeartBarrier, PauseFloat OR AbilitySwap=1 OR Shuriken=2 OR DoubleJump  # Starting from a small ledge in the pillar. DJ is too inconsistent for kii
 
 anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from the Broken Mural
   state WindtornRuins.HeartBarrier:
@@ -15290,7 +15294,7 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
       Burrow, DoubleJump OR Dash OR Glide OR Launch
       Burrow, Bash, Grenade=1
     gorlek: Burrow, BreakWall=16
-    unsafe: ShurikenBreak=16 OR SentryBreak=16
+    unsafe: ShurikenBreak=16 OR SentryBreak=16 OR Blaze=2
 
   conn WindtornRuins.RuinsTP:  # this accounts for both situations of having broken the heart or not
     moki:
