@@ -15375,11 +15375,12 @@ anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
       Burrow, Dash, Hammer OR Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1  # burrow the crumbing platform from the left side
       Burrow, Hammer, Shuriken=1 OR Blaze=2 OR Flash=1 OR Sentry=1
     unsafe:
-      Burrow OR WindtornRuins.TeleporterCorruption:
-        Sword, Spear=1 OR Blaze=1
       Burrow, DoubleJump  # right side of the crumbing platform, touch it just before burrowing into it so you get a lot more speed
-      Burrow, Sentry=3
+      Burrow, Sentry=3 OR Shuriken=2 OR Blaze=5
       Burrow, Hammer, Spear=1 OR Blaze=1
+      PauseFloat, Burrow OR WindtornRuins.TeleporterCorruption
+      WindtornRuins.TeleporterCorruption, WaveDash OR Shuriken=3  # Sometimes you will bonk on the pillar with wavedash
+      WindtornRuins.TeleporterCorruption, Dash, Shuriken=1 OR Sentry=1 OR Flash=1 OR Spear=1 OR Blaze=1 OR Sword  # Ceiling reset on the pillar
 
 anchor WindtornRuins.Escape at 2021, -4026:
   nospawn
