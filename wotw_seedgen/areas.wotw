@@ -15274,22 +15274,22 @@ anchor WindtornRuins.BrokenMural at 2108, -3959:  # At the broken mural above th
   conn WindtornRuins.RuinsTP:  # check for redundancies with FallenPillar
     gorlek:
       Burrow, DoubleJump OR Dash OR Glide OR Sword  # Just hold right. Or if you drop down, some can recover jumping from the right wall and burrowing through the sand platform
-      WindtornRuins.HeartBarrier, Glide OR Dash
-      WindtornRuins.HeartBarrier, DoubleJump, TripleJump OR Sword OR Hammer
+      WindtornRuins.TeleporterCorruption, Glide OR Dash
+      WindtornRuins.TeleporterCorruption, DoubleJump, TripleJump OR Sword OR Hammer
     kii:
-      WindtornRuins.HeartBarrier, Hammer OR Sword OR Sentry=2
+      WindtornRuins.TeleporterCorruption, Hammer OR Sword OR Sentry=2
       Burrow, Hammer
       Burrow, Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1  # burrow the crumbing platform
     unsafe:
       Burrow  # slide down the pillar, hold up+right and burrow through the crumbing platform
-      WindtornRuins.HeartBarrier, GrenadeJump  # GrenadeCancel to reach the platform, then GrenadeJump https://youtu.be/CzoURpEZPFA
-      WindtornRuins.HeartBarrier, SpearJump=1, Spear=2  # Spear to reach the platform, SpearJump off the platform, safety spear to reach the wall
-      WindtornRuins.HeartBarrier, PauseFloat OR AbilitySwap=1 OR Shuriken=2 OR DoubleJump  # Starting from a small ledge in the pillar. DJ is too inconsistent for kii
+      WindtornRuins.TeleporterCorruption, GrenadeJump  # GrenadeCancel to reach the platform, then GrenadeJump https://youtu.be/CzoURpEZPFA
+      WindtornRuins.TeleporterCorruption, SpearJump=1, Spear=2  # Spear to reach the platform, SpearJump off the platform, safety spear to reach the wall
+      WindtornRuins.TeleporterCorruption, PauseFloat OR AbilitySwap=1 OR Shuriken=2 OR DoubleJump  # Starting from a small ledge in the pillar. DJ is too inconsistent for kii
 
 anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from the Broken Mural
-  state WindtornRuins.HeartBarrier:
-    # Most of these paths go to the teleporter and break the corruption heart. But they can't be used as connection to the teleporter anchor because after you broke the heart, you can't go to the teleporter again by using those paths.
-    # While breaking the heart always teleport you near the teleporter afterwards (even when using Shuriken/Sentry breaks, which means you'll be able to teleport there whenever you want), the edgecase of using an header to break this corruption from the start makes those paths not viable as connections to the teleporter.
+  state WindtornRuins.TeleporterCorruption:
+    # Most of these paths go to the teleporter and break the corruption blob. But they can't be used as connection to the teleporter anchor because after you broke the blob, you can't go to the teleporter again by using those paths.
+    # While breaking the blob always teleport you near the teleporter afterwards (even when using Shuriken/Sentry breaks, which means you'll be able to teleport there whenever you want), the edgecase of using an header to break this corruption from the start makes those paths not viable as connections to the teleporter.
     moki, BreakWall=16:
       Burrow, DoubleJump OR Dash OR Glide OR Launch
       Burrow, Bash, Grenade=1
@@ -15301,21 +15301,21 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
     moki:
       Burrow, DoubleJump, Dash OR Glide
       Burrow, Bash, Grenade=1, Glide
-      Launch, Burrow OR WindtornRuins.HeartBarrier
+      Launch, Burrow OR WindtornRuins.TeleporterCorruption
     gorlek:
       Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Sword OR Hammer OR Damage=40
       Burrow, SentryJump=1
     kii:
       Burrow, Bash, Grenade=1
       # Glitched
-      # Burrow, GrenadeJump, Damage=40 OR WindtornRuins.HeartBarrier  # With the barrier, it's a tight jump over the spikes without GrenadeCancel
+      # Burrow, GrenadeJump, Damage=40 OR WindtornRuins.TeleporterCorruption  # With the barrier, it's a tight jump over the spikes without GrenadeCancel
       # Burrow, AerialHammerJump  # DJ alone is a bit tight for kii
     unsafe:
       # Burrow  # Only if the corruption blob is not broken. In that case, redundant with going to BrokenMural.
       Burrow, Sword OR GlideJump OR AbilitySwap=1 OR WallHammerJump OR CoyoteHammerJump OR GroundedHammerJump OR PauseFloat OR DoubleJump OR Dash
       Burrow, SpearJump=1, Spear=1
   conn WindtornRuins.Escape:  # this connection doesn't have to account for the gap in the floor because it only exists after you finished the escape
-    moki: WindtornRuins.HeartBarrier
+    moki: WindtornRuins.TeleporterCorruption
   conn WindtornRuins.LowerRuins:  # connection after the escape is finished
     # if you completed the escape, there's a gap in the floor that you have to cross
     # Finishing the escape removes the pillar
@@ -15353,32 +15353,32 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
 anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
   refill Full
 
-  state WindtornRuins.HeartBarrier:  # Barrier next to the teleporter that stops you from getting the Heart.
+  state WindtornRuins.TeleporterCorruption:  # Barrier next to the teleporter that stops you from getting to the escape.
     moki: BreakWall=16
   # state NonGladesTeleporter: free  # the associated path got fixed in rando
 
   conn Teleporters: free
   conn WindtornRuins.FallenPillar:
-    moki: WindtornRuins.HeartBarrier OR Burrow
+    moki: WindtornRuins.TeleporterCorruption OR Burrow
   conn WindtornRuins.BrokenMural:  # check for redundancies with FallenPillar
-    # Each path which isn't including WindtornRuins.HeartBarrier is done with this state resolved and is burrowing through the crumbling platform. But since these are also possible with only Burrow before breaking the heart, you don't actually need WindtornRuins.HeartBarrier at all.
-    moki, Burrow OR WindtornRuins.HeartBarrier:  # these account for both situations of having broken the heart or not
+    # Each path which isn't including WindtornRuins.TeleporterCorruption is done with this state resolved and is burrowing through the crumbling platform. But since these are also possible with only Burrow before breaking the blob, you don't actually need WindtornRuins.TeleporterCorruption at all.
+    moki, Burrow OR WindtornRuins.TeleporterCorruption:  # these account for both situations of having broken the blob or not
       Glide, DoubleJump OR Dash
-    gorlek, Burrow OR WindtornRuins.HeartBarrier:
+    gorlek, Burrow OR WindtornRuins.TeleporterCorruption:
       Glide
       Sword, DoubleJump OR Dash
       DoubleJump, Dash, Hammer
     kii:
-      WindtornRuins.HeartBarrier, DoubleJump, TripleJump OR Dash OR Hammer OR Blaze=4 OR Sentry=2
-      WindtornRuins.HeartBarrier, Dash, Hammer OR Sentry=2
-      WindtornRuins.HeartBarrier, Sword, Shuriken=1 OR Blaze=2 OR Flash=1 OR Sentry=1 OR Hammer
-      WindtornRuins.HeartBarrier, Hammer, Sentry=2
+      WindtornRuins.TeleporterCorruption, DoubleJump, TripleJump OR Dash OR Hammer OR Blaze=4 OR Sentry=2
+      WindtornRuins.TeleporterCorruption, Dash, Hammer OR Sentry=2
+      WindtornRuins.TeleporterCorruption, Sword, Shuriken=1 OR Blaze=2 OR Flash=1 OR Sentry=1 OR Hammer
+      WindtornRuins.TeleporterCorruption, Hammer, Sentry=2
       Burrow, Sword  # jump on the left side of the crumbing platform and burrow it from underneath. You can slow yourself down with slashes
       Burrow, DoubleJump, TripleJump OR Dash OR Hammer OR Blaze=3 OR Sentry=2
       Burrow, Dash, Hammer OR Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1  # burrow the crumbing platform from the left side
       Burrow, Hammer, Shuriken=1 OR Blaze=2 OR Flash=1 OR Sentry=1
     unsafe:
-      Burrow OR WindtornRuins.HeartBarrier:
+      Burrow OR WindtornRuins.TeleporterCorruption:
         Sword, Spear=1 OR Blaze=1
       Burrow, DoubleJump  # right side of the crumbing platform, touch it just before burrowing into it so you get a lot more speed
       Burrow, Sentry=3
@@ -15392,16 +15392,16 @@ anchor WindtornRuins.Escape at 2021, -4026:
   # that would have reached it before completing the escape. That's why this has no outside connections; the paths to here
   # can softlock after achieving the EscapeComplete state, so this anchor is only safe as long as it does nothing else than handling that state.
   quest WindtornRuins.Seir:
-    moki, WindtornRuins.HeartBarrier:
+    moki, WindtornRuins.TeleporterCorruption:
       Burrow, Dash, Grapple, DoubleJump OR Glide
       Burrow, DoubleJump, Glide, Grapple
       Burrow, DoubleJump, Launch, Dash OR Glide
       Burrow, Grapple, Launch, Glide
-    gorlek, WindtornRuins.HeartBarrier:
+    gorlek, WindtornRuins.TeleporterCorruption:
       Burrow, Grapple, DoubleJump, Damage=40, Sword OR Hammer
       Burrow, Grapple, Dash, Damage=40, Sword OR Hammer
       Burrow, Launch, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=40
-    kii, WindtornRuins.HeartBarrier:
+    kii, WindtornRuins.TeleporterCorruption:
       Burrow, Launch
       Burrow, Grapple, Glide OR DoubleJump OR Dash OR Sword OR Hammer
       Burrow, Grapple, Sentry=5 OR Shuriken=5  # Same path, different energy weapon
@@ -15409,7 +15409,7 @@ anchor WindtornRuins.Escape at 2021, -4026:
       Burrow, Grapple, Damage=70, Sentry=2 OR Shuriken=2  # Sentry=5 / Shuriken=5 path but saving the first 3 uses by dboosting
       Burrow, Dash, DoubleJump  # djump at the end of the second sandball+grapple section before dashing in order to avoid the spikes
     unsafe:
-      WindtornRuins.HeartBarrier:  # do the escape
+      WindtornRuins.TeleporterCorruption:  # do the escape
         Burrow, Dash, Hammer  # upslash at the end of the second sandball+grapple section before dashing in order to avoid the spikes
         Burrow, Grapple, Damage=10  # You are allowed to hate me if this is forced progression https://youtu.be/H3UIH4FyU4Q
         Burrow, Grapple, Blaze=5 OR Flash=5
