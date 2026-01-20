@@ -14584,7 +14584,7 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the ruins bre
       Bash, DoubleJump, TripleJump OR Dash  # Bash glide from the gorlek's projectile
     unsafe:
       Grapple, Glide, Spear=1
-  conn WindtornRuins.LowerRuins:
+  conn WindtornRuins.MapstoneAltar:
     gorlek: ShurikenBreak=20, Burrow
 
 anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the lever
@@ -15334,7 +15334,7 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
       Burrow, SpearJump=1, Spear=1
   conn WindtornRuins.Escape:  # this connection doesn't have to account for the gap in the floor because it only exists after you finished the escape
     moki: WindtornRuins.TeleporterCorruption
-  conn WindtornRuins.LowerRuins:  # connection after the escape is finished
+  conn WindtornRuins.MapstoneAltar:  # connection after the escape is finished
     # If you completed the escape, there's a gap in the floor that you have to cross
     # Finishing the escape automatically breaks the corruption blob and the wall blocking access
     moki, WindtornRuins.Seir:
@@ -15420,7 +15420,7 @@ anchor WindtornRuins.Escape at 2021, -4026:
         Burrow, AerialHammerJump, TripleJump OR GlideHammerJump OR WallHammerJump OR CoyoteHammerJump
         Burrow, GrenadeJump, DoubleJump, TripleJump
 
-anchor WindtornRuins.LowerRuins at 1969, -4024:  # At the ancient map pedestal
+anchor WindtornRuins.MapstoneAltar at 1969, -4024:  # At the ancient map pedestal
   # requires escape to be done
   quest WindtornRuins.HandToHandComplete:
     moki: LowerWastes.HandToHandMapstone
