@@ -15296,42 +15296,8 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
     gorlek: Burrow, BreakWall=16
     unsafe: ShurikenBreak=16 OR SentryBreak=16 OR Blaze=2
 
-  conn WindtornRuins.RuinsTP:
-    # This accounts for both situations of having broken the corruption blob or not. Check for redundancy with paths originating from BrokenMural
-    moki:
-      Burrow, DoubleJump, Dash OR Glide
-      Burrow, Bash, Grenade=1, Glide
-      Launch, Burrow OR WindtornRuins.TeleporterCorruption
-    gorlek:
-      Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Sword OR Hammer OR Damage=40
-      Burrow, SentryJump=1
-    kii:
-      Burrow, Bash, Grenade=1
-      # Glitched
-      # Burrow, GrenadeJump, Damage=40 OR WindtornRuins.TeleporterCorruption  # With the barrier, it's a tight jump over the spikes without GrenadeCancel
-      # Burrow, AerialHammerJump  # DJ alone is a bit tight for kii
-    unsafe:
-      # Burrow  # Only if the corruption blob is not broken. In that case, redundant with going to BrokenMural.
-      Burrow, Sword OR GlideJump OR AbilitySwap=1 OR WallHammerJump OR CoyoteHammerJump OR GroundedHammerJump OR PauseFloat OR DoubleJump OR Dash
-      Burrow, SpearJump=1, Spear=1
-  conn WindtornRuins.Escape:  # this connection doesn't have to account for the gap in the floor because it only exists after you finished the escape
-    moki: WindtornRuins.TeleporterCorruption
-  conn WindtornRuins.LowerRuins:  # connection after the escape is finished
-    # if you completed the escape, there's a gap in the floor that you have to cross
-    # Finishing the escape removes the pillar
-    # Since Burrow solves this connection, it accounts for all paths to the escape revisit pickup
-    moki, WindtornRuins.Seir:
-      DoubleJump OR Dash OR Glide OR Burrow OR Launch
-      Bash, Grenade=1
-    gorlek, WindtornRuins.Seir: Sword OR Hammer
-    kii, WindtornRuins.Seir:
-      Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
-      # Glitched
-      # GrenadeJump
-    unsafe: WindtornRuins.Seir
   conn WindtornRuins.BrokenMural:
     # If the corruption blob is not broken, this connection is free. The paths need to solve assuming that the blob is broken
-    # Also check for redundancy with FallenPillar->RuinsTP->BrokenMural (with broken corruption)
     moki:
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
@@ -15342,13 +15308,44 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
     kii:
       DoubleJump, TripleJump, Sentry=1 OR Spear=1 OR Flash=1 OR Shuriken=1
       # Glitched
+      # GlideJump, DoubleJump, Sword OR Hammer OR Sentry=1 OR Spear=1 OR Flash=1 OR Shuriken=1
       # GrenadeJump
       # AerialHammerJump
-      # GlideJump, DoubleJump, Sword OR Hammer OR Sentry=1 OR Spear=1 OR Flash=1
     unsafe:
-      DoubleJump, TripleJump OR GlideJump OR Dash  # Dashramp
+      DoubleJump, TripleJump OR GlideJump OR Dash
       Sword, Shuriken=1, DoubleJump OR GlideJump OR Dash  # Pogo
       AbilitySwap=1 OR GroundedHammerJump OR WallHammerJump OR GlideHammerJump
+  conn WindtornRuins.RuinsTP:
+    # This accounts for both situations of having broken the corruption blob or not. Check for redundancy with FallenPillar->BrokenMural->RuinsTP
+    moki:  # This is the only anchor that can reach RuinsTP for moki
+      Burrow, DoubleJump, Dash OR Glide
+      Burrow, Bash, Grenade=1, Glide
+      Launch, Burrow OR WindtornRuins.TeleporterCorruption
+    gorlek:
+      Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Sword OR Hammer OR Damage=40
+      Burrow, SentryJump=1
+    kii:
+      Burrow, Bash, Grenade=1
+      # Glitched
+      # Burrow, GrenadeJump, Damage=40 OR WindtornRuins.TeleporterCorruption  # With the corruption intact, it's a tight jump over the spikes without GrenadeCancel
+      # Burrow, AerialHammerJump  # DJ alone is a bit tight for kii
+    unsafe:
+      Burrow, Sword OR GlideJump OR AbilitySwap=1 OR WallHammerJump OR CoyoteHammerJump OR GroundedHammerJump OR PauseFloat OR DoubleJump OR Dash OR GrenadeJump
+      Burrow, SpearJump=1, Spear=1
+  conn WindtornRuins.Escape:  # this connection doesn't have to account for the gap in the floor because it only exists after you finished the escape
+    moki: WindtornRuins.TeleporterCorruption
+  conn WindtornRuins.LowerRuins:  # connection after the escape is finished
+    # If you completed the escape, there's a gap in the floor that you have to cross
+    # Finishing the escape automatically breaks the corruption blob and the wall blocking access
+    moki, WindtornRuins.Seir:
+      DoubleJump OR Dash OR Glide OR Burrow OR Launch
+      Bash, Grenade=1
+    gorlek, WindtornRuins.Seir: Sword OR Hammer
+    kii, WindtornRuins.Seir:
+      Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
+      # Glitched
+      # GrenadeJump
+    unsafe: WindtornRuins.Seir  # Paths breaking out of the escape should start from WindtornRuins.Escape
 
 anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
   refill Full
