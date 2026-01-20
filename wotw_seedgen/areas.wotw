@@ -15421,7 +15421,6 @@ anchor WindtornRuins.Escape at 2021, -4026:
         Burrow, GrenadeJump, DoubleJump, TripleJump
 
 anchor WindtornRuins.MapstoneAltar at 1969, -4024:  # At the ancient map pedestal
-  # requires escape to be done
   quest WindtornRuins.HandToHandComplete:
     moki: LowerWastes.HandToHandMapstone
 
@@ -15440,8 +15439,13 @@ anchor WindtornRuins.MapstoneAltar at 1969, -4024:  # At the ancient map pedesta
     kii, WindtornRuins.Seir:
       DoubleJump, Burrow OR Hammer OR Spear=1 OR Sentry=1 OR Flash=1 OR Shuriken=1 OR Blaze=1
       Dash, Glide OR Sword OR Hammer OR Spear=1 OR Sentry=1 OR Flash=1 OR Shuriken=1 OR Blaze=1
+      Sentry=3
+      # Glitched
+      # GrenadeJump, Sword OR DoubleJump OR Dash OR Hammer OR Glide
+      # GlideJump
     unsafe, WindtornRuins.Seir:
-      Dash OR DoubleJump
+      Dash OR DoubleJump OR PauseFloat OR AbilitySwap=1 OR Burrow
+      Sword, Shuriken=1  # Pogo
   conn LowerWastes.MinesEntranceEnemyPaths:
     moki: Burrow, BreakWall=20
 
