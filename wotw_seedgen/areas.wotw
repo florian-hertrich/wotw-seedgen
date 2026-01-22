@@ -15279,9 +15279,9 @@ anchor WindtornRuins.BrokenMural at 2108, -3959:  # At the broken mural above th
     kii:
       WindtornRuins.TeleporterCorruption, Hammer OR Sword OR Sentry=2
       Burrow, Hammer
-      Burrow, Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1  # burrow the crumbing platform
+      Burrow, Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1  # burrow the crumbling platform
     unsafe:
-      Burrow  # slide down the pillar, hold up+right and burrow through the crumbing platform
+      Burrow  # slide down the pillar, hold up+right and burrow through the crumbling platform
       WindtornRuins.TeleporterCorruption, GrenadeJump  # GrenadeCancel to reach the platform, then GrenadeJump https://youtu.be/CzoURpEZPFA
       WindtornRuins.TeleporterCorruption, SpearJump=1, Spear=2  # Spear to reach the platform, SpearJump off the platform, safety spear to reach the wall
       WindtornRuins.TeleporterCorruption, PauseFloat OR AbilitySwap=1 OR Shuriken=2 OR DoubleJump  # Starting from a small ledge in the pillar. DJ is too inconsistent for kii
@@ -15289,7 +15289,7 @@ anchor WindtornRuins.BrokenMural at 2108, -3959:  # At the broken mural above th
 anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from the Broken Mural
   state WindtornRuins.TeleporterCorruption:
     # Most of these paths go to the teleporter and break the corruption blob. But they can't be used as connection to the teleporter anchor because after you broke the blob, you can't go to the teleporter again by using those paths.
-    # While breaking the blob always teleport you near the teleporter afterwards (even when using Shuriken/Sentry breaks, which means you'll be able to teleport there whenever you want), the edgecase of using an header to break this corruption from the start makes those paths not viable as connections to the teleporter.
+    # While breaking the blob always teleport you near the teleporter afterwards (even when using Shuriken/Sentry breaks, which means you'll be able to teleport there whenever you want), the edgecase of using a header to break this corruption from the start makes those paths not viable as connections to the teleporter.
     moki, BreakWall=16:
       Burrow, DoubleJump OR Dash OR Glide OR Launch
       Burrow, Bash, Grenade=1
@@ -15309,7 +15309,7 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
       DoubleJump, TripleJump, Sentry=1 OR Spear=1 OR Flash=1 OR Shuriken=1
       # Glitched
       # GlideJump, DoubleJump, Sword OR Hammer OR Sentry=1 OR Spear=1 OR Flash=1 OR Shuriken=1
-      # GrenadeJump
+      # GrenadeJump=1
       # AerialHammerJump
     unsafe:
       DoubleJump, TripleJump OR GlideJump OR Dash
@@ -15317,6 +15317,7 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
       AbilitySwap=1 OR GroundedHammerJump OR WallHammerJump OR GlideHammerJump
   conn WindtornRuins.RuinsTP:
     # This accounts for both situations of having broken the corruption blob or not. Check for redundancy with FallenPillar->BrokenMural->RuinsTP
+    # Be careful when using the bottom right wall for pathfinding. The wall is closer and has different geometry if the escape is complete
     moki:  # This is the only anchor that can reach RuinsTP for moki
       Burrow, DoubleJump, Dash OR Glide
       Burrow, Bash, Grenade=1, Glide
@@ -15324,11 +15325,14 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
     gorlek:
       Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Sword OR Hammer OR Damage=40
       Burrow, SentryJump=1
+      Burrow, DoubleJump, TripleJump OR Hammer  # Sword can hit the sand and knock you back
     kii:
       Burrow, Bash, Grenade=1
+      Burrow, DoubleJump, Sword OR Sentry=1 OR Flash=1 OR Spear=1 OR Shuriken=1
       # Glitched
-      # Burrow, GrenadeJump, Damage=40 OR WindtornRuins.TeleporterCorruption  # With the corruption intact, it's a tight jump over the spikes without GrenadeCancel
+      # Burrow, GrenadeJump=1, Damage=40 OR WindtornRuins.TeleporterCorruption  # With the corruption intact, it's a tight jump over the spikes without GrenadeCancel
       # Burrow, AerialHammerJump  # DJ alone is a bit tight for kii
+      # Burrow, DoubleJump, GlideJump
     unsafe:
       Burrow, Sword OR GlideJump OR AbilitySwap=1 OR WallHammerJump OR CoyoteHammerJump OR GroundedHammerJump OR PauseFloat OR DoubleJump OR Dash OR GrenadeJump
       Burrow, SpearJump=1, Spear=1
@@ -15344,8 +15348,8 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
     kii, WindtornRuins.Seir:
       Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
       # Glitched
-      # GrenadeJump
-    unsafe: WindtornRuins.Seir  # Paths breaking out of the escape should start from WindtornRuins.Escape
+      # GrenadeJump=1
+    unsafe: WindtornRuins.Seir
 
 anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
   refill Full
@@ -15370,12 +15374,12 @@ anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
       WindtornRuins.TeleporterCorruption, Dash, Hammer OR Sentry=2
       WindtornRuins.TeleporterCorruption, Sword, Shuriken=1 OR Blaze=2 OR Flash=1 OR Sentry=1 OR Hammer
       WindtornRuins.TeleporterCorruption, Hammer, Sentry=2
-      Burrow, Sword  # jump on the left side of the crumbing platform and burrow it from underneath. You can slow yourself down with slashes
+      Burrow, Sword  # jump on the left side of the crumbling platform and burrow it from underneath. You can slow yourself down with slashes
       Burrow, DoubleJump, TripleJump OR Dash OR Hammer OR Blaze=3 OR Sentry=2
-      Burrow, Dash, Hammer OR Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1  # burrow the crumbing platform from the left side
+      Burrow, Dash, Hammer OR Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1  # burrow the crumbling platform from the left side
       Burrow, Hammer, Shuriken=1 OR Blaze=2 OR Flash=1 OR Sentry=1
     unsafe:
-      Burrow, DoubleJump  # right side of the crumbing platform, touch it just before burrowing into it so you get a lot more speed
+      Burrow, DoubleJump  # right side of the crumbling platform, touch it just before burrowing into it so you get a lot more speed
       Burrow, Sentry=3 OR Shuriken=2 OR Blaze=5
       Burrow, Hammer, Spear=1 OR Blaze=1
       PauseFloat, Burrow OR WindtornRuins.TeleporterCorruption
@@ -15405,9 +15409,9 @@ anchor WindtornRuins.Escape at 2021, -4026:
       Burrow, Grapple, Sentry=5 OR Shuriken=5  # Same path, different energy weapon
       Burrow, Grapple, Damage=30, Sentry=3 OR Shuriken=3  # Sentry=5 / Shuriken=5 path but saving 2 uses by dboosting in the section where you fall down
       Burrow, Grapple, Damage=70, Sentry=2 OR Shuriken=2  # Sentry=5 / Shuriken=5 path but saving the first 3 uses by dboosting
+      Burrow, Dash, DoubleJump  # djump at the end of the second sandball+grapple section before dashing in order to avoid the spikes
     unsafe:
       WindtornRuins.TeleporterCorruption:  # do the escape
-        Burrow, Dash, DoubleJump  # djump at the end of the second sandball+grapple section before dashing in order to avoid the spikes
         Burrow, Dash, Hammer  # upslash at the end of the second sandball+grapple section before dashing in order to avoid the spikes
         Burrow, Grapple, Damage=10  # You are allowed to hate me if this is forced progression https://youtu.be/H3UIH4FyU4Q
         Burrow, Grapple, Blaze=5 OR Flash=5
@@ -15439,12 +15443,11 @@ anchor WindtornRuins.MapstoneAltar at 1969, -4024:  # At the ancient map pedesta
     kii, WindtornRuins.Seir:
       DoubleJump, Burrow OR Hammer OR Spear=1 OR Sentry=1 OR Flash=1 OR Shuriken=1 OR Blaze=1
       Dash, Glide OR Sword OR Hammer OR Spear=1 OR Sentry=1 OR Flash=1 OR Shuriken=1 OR Blaze=1
-      Sentry=3
       # Glitched
-      # GrenadeJump, Sword OR DoubleJump OR Dash OR Hammer OR Glide
+      # GrenadeJump=1, Sword OR DoubleJump OR Dash OR Hammer OR Glide
       # GlideJump
     unsafe, WindtornRuins.Seir:
-      Dash OR DoubleJump OR PauseFloat OR AbilitySwap=1 OR Burrow
+      Dash OR DoubleJump OR PauseFloat OR AbilitySwap=1 OR Burrow OR Sentry=3
       Sword, Shuriken=1  # Pogo
   conn LowerWastes.MinesEntranceEnemyPaths:
     moki: Burrow, BreakWall=20
