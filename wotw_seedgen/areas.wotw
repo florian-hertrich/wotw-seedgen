@@ -15304,9 +15304,8 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
     gorlek:
       SentryJump=1
       Bash, Grenade=1
-      DoubleJump, TripleJump, Sword OR Hammer
     kii:
-      DoubleJump, TripleJump, Sentry=1 OR Spear=1 OR Flash=1 OR Shuriken=1
+      DoubleJump, TripleJump, Sword OR Hammer OR Sentry=1 OR Spear=1 OR Flash=1 OR Shuriken=1
       # Glitched
       # GlideJump, DoubleJump, Sword OR Hammer OR Sentry=1 OR Spear=1 OR Flash=1 OR Shuriken=1
       # GrenadeJump=1
@@ -15325,10 +15324,10 @@ anchor WindtornRuins.FallenPillar at 2090, -4012:  # After dropping down from th
     gorlek:
       Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Sword OR Hammer OR Damage=40
       Burrow, SentryJump=1
-      Burrow, DoubleJump, TripleJump OR Hammer  # Sword can hit the sand and knock you back
+      Burrow, DoubleJump, TripleJump
     kii:
       Burrow, Bash, Grenade=1
-      Burrow, DoubleJump, Sword OR Sentry=1 OR Flash=1 OR Spear=1 OR Shuriken=1
+      Burrow, DoubleJump, Sword OR Hammer OR Sentry=1 OR Flash=1 OR Spear=1 OR Shuriken=1
       # Glitched
       # Burrow, GrenadeJump=1, Damage=40 OR WindtornRuins.TeleporterCorruption  # With the corruption intact, it's a tight jump over the spikes without GrenadeCancel
       # Burrow, AerialHammerJump  # DJ alone is a bit tight for kii
