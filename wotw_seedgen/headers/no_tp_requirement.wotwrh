@@ -1,0 +1,8 @@
+#category World Changes
+/// No TP Requirement
+///
+/// Logic will ignore requirement for using teleporters.
+/// This makes it possible to TP to Burrows without Bash, Depths without Glide, Reach without Flap, Wastes/Ruins/Willow without Burrow
+
+!!set RemoveTPRequirements
+3|0|8|9|142|bool|true

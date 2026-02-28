@@ -61,11 +61,17 @@ anchor HeaderStates:  # States you need to resolve by using the !!set command in
     moki: Impossible
   state SkipMora2:  # Used to logically support skipping Mora's second combat phase
     moki: Impossible
+  state RemoveTPRequirements:  # Used to logically remove the skills requirement for teleporters
+    moki: Impossible
 
 anchor Teleporters:  # teleporter access
+  state FreeTeleporters:
+    moki: RemoveTPRequirements
+    unsafe: Unpopular
+
   conn MidnightBurrows.Teleporter:
-    moki: BurrowsTP, Bash, Keystone=2
-    unsafe: BurrowsTP, Keystone=2, Unpopular OR Shuriken
+    moki: BurrowsTP, Keystone=2, Bash OR FreeTeleporters
+    unsafe: BurrowsTP, Keystone=2, Shuriken
     # okay, soooo: this TP frequently unlocks exactly 4 pickups (the vanilla keystones in that area)
     # It also makes a 4 keystone door available! Without the Keystone=2 line here, the seed generator
     # picks this path, unlocking 4 pickups, then immediately fills those with keystones and gets stuck
@@ -84,34 +90,30 @@ anchor Teleporters:  # teleporter access
   conn WoodsMain.Teleporter:
     moki: EastWoodsTP
   conn LowerReach.Teleporter:
-    moki: ReachTP, Flap
-    unsafe: ReachTP, Unpopular
+    moki: ReachTP, Flap OR FreeTeleporters
   conn UpperDepths.Teleporter:
-    moki: DepthsTP, Glide
-    unsafe: DepthsTP, Unpopular
+    moki: DepthsTP, Glide OR FreeTeleporters
   conn EastPools.Teleporter:
-    moki: EastPoolsTP, Water
-    unsafe: EastPoolsTP, Unpopular
+    moki: EastPoolsTP, Water OR FreeTeleporters
   conn WestPools.Teleporter:
-    moki: WestPoolsTP, Water, WaterDash
-    unsafe: WestPoolsTP, Unpopular OR Water
+    moki:
+      WestPoolsTP, Water, WaterDash
+      WestPoolsTP, FreeTeleporters
+    unsafe: WestPoolsTP, Water
   conn LowerWastes.WestTP:
     moki: WestWastesTP
   conn LowerWastes.EastTP:
-    moki: EastWastesTP, Burrow
-    unsafe: EastWastesTP, Unpopular
+    moki: EastWastesTP, Burrow OR FreeTeleporters
   conn UpperWastes.NorthTP:
-    moki: OuterRuinsTP, Burrow
-    unsafe: OuterRuinsTP, Unpopular
+    moki: OuterRuinsTP, Burrow OR FreeTeleporters
   conn WindtornRuins.RuinsTP:
-    moki: InnerRuinsTP, Burrow, EastHollow.ForestsVoice, LowerReach.ForestsMemory, UpperDepths.ForestsEyes, WestPools.ForestsStrength
-    unsafe: InnerRuinsTP, Unpopular
+    moki:
+      InnerRuinsTP, Burrow, EastHollow.ForestsVoice, LowerReach.ForestsMemory, UpperDepths.ForestsEyes, WestPools.ForestsStrength
+      InnerRuinsTP, FreeTeleporters
   conn WillowsEnd.InnerTP:
-    moki: WillowTP, Burrow
-    unsafe: WillowTP, Unpopular
+    moki: WillowTP, Burrow OR FreeTeleporters
   conn WillowsEnd.ShriekArena:
-    moki: ShriekTP, Burrow
-    unsafe: ShriekTP, Unpopular
+    moki: ShriekTP, Burrow OR FreeTeleporters
 
 anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
   refill Full
@@ -2179,10 +2181,8 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  # Right on top of MarshPast
     gorlek: ShurikenBreak=20
 
 region MidnightBurrows:
-  moki: Danger=25
+  moki: Danger=25  # 10 from enemy projectile + 15 from spikes
   gorlek: free
-  kii: free
-  unsafe: free
 
 anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
   refill Full
@@ -2500,10 +2500,8 @@ anchor MidnightBurrows.BelowUpperKS at -724, -4524:  # Just below the upper keys
       Damage=150
 
 region WestHollow:
-  moki: Danger=20
+  moki: Danger=20  # 10 from enemies + 10 from spikes
   gorlek: free
-  kii: free
-  unsafe: free
 
 anchor WestHollow.Entrance at -303, -4238:  # At Twillen
   refill Checkpoint
@@ -3440,10 +3438,8 @@ anchor WestHollow.AboveDashSemisolid at -81, -4411:  # the semisolid near WestHo
     unsafe: WestHollow.DoorLever, Bash  # Bash the slime on the log above, use the mantis to go there too. Precise bash angle to send the slime in the spikes and bash it again after it dies. Also, the skeeto can come in the spikes area, making that path waaaaay easier
 
 region EastHollow:
-  moki: Danger=20
+  moki: Danger=20  # 10 from spikes + 10 from enemies
   gorlek: free
-  kii: free
-  unsafe: free
 
 anchor EastHollow.Teleporter at -150, -4237:  # the teleporter
   # before writing any paths that use the (left) mantis or the skeeto, please remember they only spawn when the player has bash
@@ -5187,10 +5183,8 @@ anchor GladesTown.InsideHoleHut at -107, -4506:  # Inside the hut with 2 pickups
 
 
 region WestGlades:
-  moki: Danger=20
+  moki: Danger=30  # 10 from enemies + 20 from poisoned water
   gorlek: free
-  kii: free
-  unsafe: free
 
 anchor WestGlades.RightLowerPool at -545, -4113:  # The right edge of the lower pool in WestGlades
   refill Checkpoint
@@ -5765,10 +5759,8 @@ anchor GladesShrine at -635, -4020:
     moki: WestGlades.CombatShrineCompleted
 
 region OuterWellspring:
-  moki: Danger=25
+  moki: Danger=30  # 20 from poisoned water + 10 from enemies
   gorlek: free
-  kii: free
-  unsafe: free
 
 anchor OuterWellspring.CutsceneIsland at -756, -4071:  # The island on the right of the entrance, where the wellspring cutscene plays out
   conn OuterWellspring.EntranceDoor:
@@ -6787,10 +6779,8 @@ anchor OuterWellspring.TrialStart at -665, -3937:
       GrenadeJump
 
 region InnerWellspring:
-  moki: Danger=25
+  moki: Danger=30  # 20 from poisoned water or lasers + 10 from enemies
   gorlek: free
-  kii: free
-  unsafe: free
 
 anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where you enter the first room
   door:
@@ -7692,9 +7682,11 @@ anchor InnerWellspring.EscapeSequence at -1240, -3642:
     moki: InnerWellspring.WaterEscape
 
 region WoodsEntry:
-  moki: Danger=40, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=35, Regenerate  # 20 from balloons + 15 from spikes
+  gorlek:
+    Danger=15, Regenerate  # 15 from spikes
+    Danger=35
+  kii: Danger=15
   unsafe: free
 
 anchor WoodsEntry.ShriekMeet at 391, -4198:  # The ledge after swimming through the Hollow connection
@@ -7907,9 +7899,11 @@ anchor WoodsEntry.TwoKeystoneRoom at 672, -4183:  # In front of the keystone doo
     unsafe: Sentry=1 OR Flash=1
 
 region WoodsMain:
-  moki: Danger=40, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=35, Regenerate  # 20 from balloons + 15 from spikes
+  gorlek:
+    Danger=15, Regenerate  # 15 from spikes
+    Danger=35
+  kii: Danger=15
   unsafe: free
 
 anchor WoodsMain.AfterKuMeet at 856, -4192:  # At the upper ledge opening up to the room after finding Ku
@@ -8688,9 +8682,11 @@ anchor WoodsShrine at 1361, -4068:
     moki: WoodsMain.CombatShrineCompleted
 
 region LowerReach:
-  moki: Danger=40, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=40, Regenerate  # 20 from spikes + 20 from ShieldMiner's hammer attack
+  gorlek:
+    Danger=20, Regenerate  # 20 from spikes
+    Danger=40
+  kii: Danger=20
   unsafe: free
 
 anchor LowerReach.Entry at -390, -4025:  # Behind Baur
@@ -10103,9 +10099,11 @@ anchor LowerReach.TrialStart at 64, -4045:  # At trial start
       FlashSwap
 
 region UpperReach:
-  moki: Danger=40, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=40, Regenerate  # 20 from spikes + 20 from ShieldMiner's hammer attack
+  gorlek:
+    Danger=20, Regenerate  # 20 from spikes
+    Danger=40
+  kii: Danger=20
   unsafe: free
 
 anchor UpperReach.BurrowArea at -369, -3917:  # left of the entrance sand wall
@@ -10661,9 +10659,11 @@ anchor UpperReach.SeedHut at -131, -3857: # inside the hut with the seed
 
 
 region UpperDepths:
-  moki: Danger=40, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=40, Regenerate  # 30 from spikes + 10 from enemies
+  gorlek:
+    Danger=30, Regenerate  # 30 from spikes
+    Danger=40
+  kii: Danger=30
   unsafe: free
 
 anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the entrance
@@ -11316,9 +11316,11 @@ anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left
       DepthsLight, Damage=90
 
 region LowerDepths:
-  moki: Danger=40, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=40, Regenerate  # 30 from spikes + 10 from enemies
+  gorlek:
+    Danger=30, Regenerate
+    Danger=40
+  kii: Danger=30
   unsafe: free
 
 anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
@@ -11822,9 +11824,11 @@ anchor LowerDepths.TreeArea at 776, -4542:  # The flash tree
     unsafe: DepthsLight OR LaunchSwap  # Launch Swap: right side of first cocoon -> left side of second cocoon -> all the way across.
 
 region PoolsApproach:
-  moki: Danger=25, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=30, Regenerate  # 20 from spikes + 10 from enemies
+  gorlek:
+    Danger=20, Regenerate  # 20 from spikes
+    Danger=30
+  kii: Danger=20
   unsafe: free
 
 anchor PoolsApproach.MillPathCheckpoint at -826, -4130:  # The checkpoint halfway between Mill Approach and Mill Path (added mostly because the paths through here reached ridiculous complexity otherwise)
@@ -12478,9 +12482,11 @@ anchor PoolsApproach.OnTopOfWheel at -971, -4164:  # Highest point on the wheel
     unsafe: WaterDash, Damage=180  # 'u'
 
 region EastPools:
-  moki: Danger=40, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=34, Regenerate  # 20 from spikes + 14 from torpedos
+  gorlek:
+    Danger=20, Regenerate  # 20 from spikes
+    Danger=34
+  kii: Danger=20
   unsafe: free
 
 anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
@@ -13283,9 +13289,11 @@ anchor EastPools.CentralRoom at -1485, -4148:  # The room where you meet Kwolok 
     unsafe, EastPools.CentralRoomPurpleWall, EastPools.LupoPurpleFloor: Damage=180
 
 region UpperPools:
-  moki: Danger=40, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=34, Regenerate  # 20 from spikes + 14 from torpedos
+  gorlek:
+    Danger=20, Regenerate  # 20 from spikes
+    Danger=34
+  kii: Danger=20
   unsafe: free
 
 # checkpoint at -1425, -4144
@@ -14044,9 +14052,11 @@ anchor UpperPools.LeftBubbleSpamRoom at -1634, -4052:  # At the checkpoint on to
 # checkpoint at -1386, -4062
 
 region WestPools:
-  moki: Danger=40, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=30, Regenerate  # 20 from spikes + 10 from enemies (which spawn after defeating Kwolok)
+  gorlek:
+    Danger=20, Regenerate  # 20 from spikes
+    Danger=30
+  kii: Danger=20
   unsafe: free
 
 anchor WestPools.Teleporter at -1656, -4171:  # the west Pools TP
@@ -14193,9 +14203,11 @@ anchor KwolokFight at -1978, -4135:
     unsafe: Boss=250
 
 region LowerWastes:
-  moki: Danger=50, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=50, Regenerate  # 30 from spikes + 20 from MaceMiner's hammer attack
+  gorlek: 
+    Danger=30, Regenerate  # 30 from spikes
+    Danger=50
+  kii: Danger=30
   unsafe: free
 
 anchor LowerWastes.WestTP at 1456, -3997:  # At the Western Wastes TP
@@ -14866,9 +14878,11 @@ anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
     kii: Burrow
 
 region UpperWastes:
-  moki: Danger=50, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=50, Regenerate  # 30 from spikes + 20 from MaceMiner's hammer attack
+  gorlek:
+    Danger=30, Regenerate  # 30 from spikes
+    Danger=50
+  kii: Danger=30
   unsafe: free
 
 anchor UpperWastes.KeystoneRoom at 1900, -3831:  # Autosave underneath keystone door
@@ -15242,12 +15256,6 @@ anchor UpperWastes.OutsideRuins at 2014, -3609:  # Just outside the door
     unsafe: free  # Precise wall jumping required. Lure the mantis onto the platform to get it out of the way.
   # Connecting to RuinsApproach would be redundant because it needs Burrow
 
-region WindtornRuins:
-  moki: Danger=50, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
-  unsafe: free
-
 anchor WindtornRuins.UpperRuinsDoor at 2163, -3834:  # Just inside the door.
   door:
     id: 28
@@ -15452,9 +15460,11 @@ anchor WindtornRuins.MapstoneAltar at 1969, -4024:  # At the ancient map pedesta
     moki: Burrow, BreakWall=20
 
 region WeepingRidge:
-  moki: Danger=60, Regenerate
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=60, Regenerate  # 40 from spikes + 20 from ennemies
+  gorlek:
+    Danger=40, Regenerate  # 40 from spikes
+    Danger=60
+  kii: Danger=40
   unsafe: free
 
 anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weeping ridge
@@ -15707,9 +15717,11 @@ anchor WeepingRidge.WillowEntranceLedge at 1113, -3657:  # at the ledge to willo
     unsafe: WeepingRidge.ElevatorFightCompleted
 
 region WillowsEnd:
-  moki: Danger=60, Regenerate  # need more than 6 health and Regen to do ANYTHING in willow
-  gorlek: Regenerate
-  kii: Regenerate
+  moki: Danger=60, Regenerate  # 40 from spikes + 20 from ennemies
+  gorlek:
+    Danger=40, Regenerate  # 40 from spikes
+    Danger=60
+  kii: Danger=40
   unsafe: free
 
 anchor WillowsEnd.Entry at 495, -3950:  # At the lower door
