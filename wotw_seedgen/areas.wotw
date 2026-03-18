@@ -63,10 +63,6 @@ anchor HeaderStates:  # States you need to resolve by using the !!set command in
     moki: Impossible
   state RemoveTPRequirements:  # Used to logically remove the skills requirement for teleporters
     moki: Impossible
-  state BaurWithBlaze:  # Used to logically support opening Reach with Blaze
-    moki: Impossible
-  state BaurWithFlash:  # Used to logically support opening Reach with Flash
-    moki: Impossible
 
 anchor Teleporters:  # teleporter access
   state FreeTeleporters:
@@ -94,10 +90,7 @@ anchor Teleporters:  # teleporter access
   conn WoodsMain.Teleporter:
     moki: EastWoodsTP
   conn LowerReach.Teleporter:
-    moki:
-      ReachTP, Flap OR FreeTeleporters
-      ReachTP, BaurWithBlaze, Blaze
-      ReachTP, BaurWithFlash, Flash
+    moki: ReachTP, Flap OR FreeTeleporters
   conn UpperDepths.Teleporter:
     moki: DepthsTP, Glide OR FreeTeleporters
   conn EastPools.Teleporter:
@@ -5555,10 +5548,7 @@ anchor WestGlades.Upper at -618, -4054:  # At the sign that gives you directions
   refill Health=1
 
   state LowerReach.BearSneezed:
-    moki:
-      Flap
-      BaurWithBlaze, Blaze
-      BaurWithFlash, Flash
+    moki: Flap
 
   pickup WestGlades.UpperPoolEX:
     moki: Water
