@@ -2,7 +2,7 @@ use crate::settings::{UniverseSettings, WorldSettings};
 use crate::util;
 use crate::world::graph::{Graph, Node};
 use crate::world::World;
-use crate::{log, Inventory};
+use crate::Inventory;
 
 /// Returns all the reachable item locations on a given inventory
 ///
@@ -22,7 +22,7 @@ pub fn reach_check<'graph>(
     world.player.inventory.merge(inventory);
 
     for set in set_nodes {
-        set_node(&mut world, set);
+        world.set_node(set);
     }
     apply_sets(&mut world, seed_file)?;
 
@@ -38,27 +38,12 @@ pub fn reach_check<'graph>(
     Ok(reached)
 }
 
-fn set_node(world: &mut World, identifier: &str) {
-    let node = world
-        .graph
-        .nodes
-        .iter()
-        .find(|&node| node.identifier() == identifier);
-
-    if let Some(found_node) = node {
-        log::trace!("Setting state {}", identifier);
-        world.sets.push(found_node.index());
-    } else {
-        log::warning!("State {} not found", identifier);
-    }
-}
-
 fn apply_sets(world: &mut World, seed_file: &str) -> Result<(), String> {
     for line in seed_file.lines() {
         if let Some(sets) = line.strip_prefix("// Sets: ") {
             if !sets.is_empty() {
                 for identifier in sets.split(',').map(str::trim) {
-                    set_node(world, identifier);
+                    world.set_node(identifier);
                 }
             }
 

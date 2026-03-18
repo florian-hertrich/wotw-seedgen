@@ -239,6 +239,21 @@ impl World<'_, '_> {
     pub fn uber_states(&self) -> &FxHashMap<UberIdentifier, f32> {
         &self.uber_states
     }
+
+    pub fn set_node(&mut self, identifier: &str) {
+        let node = self
+            .graph
+            .nodes
+            .iter()
+            .find(|&node| node.identifier() == identifier);
+
+        if let Some(found_node) = node {
+            log::trace!("Setting state {}", identifier);
+            self.sets.push(found_node.index());
+        } else {
+            log::warning!("State {} not found", identifier);
+        }
+    }
 }
 
 #[cfg(test)]

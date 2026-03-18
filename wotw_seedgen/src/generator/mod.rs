@@ -178,6 +178,10 @@ fn parse_headers(
                 }
             }
 
+            for set in &header.state_sets {
+                world.set_node(set);
+            }
+
             state_sets.append(&mut header.state_sets);
 
             Ok(header_name)
