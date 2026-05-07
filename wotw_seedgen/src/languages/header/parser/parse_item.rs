@@ -83,6 +83,7 @@ enum CommandKind {
     UnEquip = 28,
     SaveString = 29,
     AppendString = 30,
+    KillShriek = 33,
 }
 #[derive(TryFromPrimitive, FromStr)]
 #[repr(u8)]
@@ -228,6 +229,7 @@ fn parse_command(parser: &mut Parser) -> Result<VItem, ParseError> {
         CommandKind::UnEquip => parse_unequip(parser),
         CommandKind::SaveString => parse_save_string(parser),
         CommandKind::AppendString => parse_append_string(parser),
+        CommandKind::KillShriek => Ok(VCommand::KillShriek),
     }?;
     Ok(VItem::Command(command))
 }

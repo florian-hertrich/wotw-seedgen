@@ -160,6 +160,7 @@ pub enum Command {
         #[VType]
         icon: String,
     },
+    KillShriek,
 }
 impl Command {
     pub fn code(&self) -> CodeDisplay<Command> {
@@ -249,6 +250,7 @@ impl Command {
             Command::SaveString { id, string } => write!(f, "29|{}|{}", id, string),
             Command::AppendString { id, string } => write!(f, "30|{}|{}", id, string),
             Command::SetMapIcon { trigger, icon } => write!(f, "31|{}|{}", trigger.code(), icon),
+            Command::KillShriek => write!(f, "33"),
         })
     }
 }
@@ -307,6 +309,7 @@ vdisplay! {
                 Self::SaveString { id, string } => write!(f, "Stores the string \"{string}\" under the identifier {id}"),
                 Self::AppendString { id, string } => write!(f, "Appends the string \"{string}\" to the current value stored under the identifier {id}"),
                 Self::SetMapIcon { trigger, icon } => write!(f, "Sets the icon on the spoiler map for the pickup location {trigger} to {icon}"),
+                Self::KillShriek => write!(f, "Kills Shriek when fight is active"),
             }
         }
     }

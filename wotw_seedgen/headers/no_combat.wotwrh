@@ -17,7 +17,7 @@ Flags: No Combat
 3|0|8|24922|45011|bool|true            // Howls shrine start as completed
 3|0|8|18793|12512|bool|true            // Depths shrine start as completed
 3|0|8|58674|56043|bool|true            // Woods shrine start as completed
-3|0|8|44310|58796|bool|true            // Glades shrine start as completed 
+3|0|8|44310|58796|bool|true            // Glades shrine start as completed
 !!endif
 
 !!if skipArenas true
@@ -49,22 +49,7 @@ Flags: No Combat
 !!set SkipMora1
 !!set SkipMora2
 16155|47278=1|8|16155|47278|byte|2     // Skip Shriek's first phase
-16155|47278=1|4|12|999                 // Regen when starting Shriek
-16155|47278=1|4|13|999                 // -
-16155|47278=3|8|16155|47278|byte|0     // Finish the game when reaching the end of Shriek's escape sequence
-16155|47278=3|8|16155|54148|bool|false
-16155|47278=3|8|16155|27024|bool|false
-16155|47278=3|8|16155|44311|bool|false
-16155|47278=3|8|16155|37648|bool|false
-16155|47278=3|8|16155|38867|bool|false
-16155|47278=3|8|16155|49408|bool|false
-16155|47278=3|8|16155|49744|bool|false
-16155|47278=3|8|16155|21083|bool|false
-16155|47278=3|8|16155|45630|bool|false
-16155|47278=3|8|16155|5826|bool|false
-16155|47278=3|8|16155|3670|bool|false
-16155|47278=3|8|16155|63705|bool|false
-16155|47278=3|8|34543|11226|bool|true
-16155|47278=3|4|0|553.947|-3609.157
-16155|47278=3|4|16|WarpCredits
+16155|47278=1|8|5|11|float|999         // Regen when starting Shriek
+16155|47278=1|8|5|13|float|999         // -
+16155|47278=3|4|33                     // Kill Shriek
 !!endif
